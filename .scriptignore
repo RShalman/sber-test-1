@@ -1,2 +1,5 @@
 src/
 utils/
+
+.history
+.git

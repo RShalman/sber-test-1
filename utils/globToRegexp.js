@@ -28,6 +28,10 @@ module.exports = function globToRegexp(glob, opts) {
   // a group (eg {*.html,*.js}), and false otherwise.
   var inGroup = false;
 
+  // CUSTOM: Special option for start string search
+  var specialOption =
+    opts && typeof opts.specialOption === "string" ? opts.specialOption : "";
+
   // RegExp flags (eg "i" ) to pass in to RegExp constructor.
   var flags = opts && typeof opts.flags === "string" ? opts.flags : "";
 
@@ -123,8 +127,11 @@ module.exports = function globToRegexp(glob, opts) {
 
   // When regexp 'g' flag is specified don't
   // constrain the regular expression with ^ & $
-  if (!flags || !~flags.indexOf("g")) {
-    reStr = reStr + "$";
+  if (specialOption == "start") {
+    // if need to find only at the beginning
+    reStr = "^" + reStr;
+  } else if (!flags || !~flags.indexOf("g")) {
+    reStr = "^" + reStr + "$";
   }
 
   return new RegExp(reStr, flags);

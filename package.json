@@ -4,6 +4,6 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start": "webpack-dev-server --mode development --progress --colors"
+    "checkScript": "node src/index.js"
   }
 }
